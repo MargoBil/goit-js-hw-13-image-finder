@@ -29,11 +29,14 @@ function renderListOfImages () {
 }
 
 function handlerSearchingImages (event) {
-  if (event.data !== null) {
+  if (event.data === '' || event.data === null) {
     refs.button.classList.remove ('visible');
     refs.listOfImages.innerHTML = '';
+    return;
+  };
+  refs.button.classList.remove ('visible');
+    refs.listOfImages.innerHTML = '';
     numberOfPage = 1;
-  }
   keyWord = event.target.value;
   renderListOfImages ();
   setTimeout(() => {
