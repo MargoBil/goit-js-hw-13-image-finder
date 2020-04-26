@@ -7,31 +7,33 @@ html {
 *::after {
   box-sizing: inherit;
 }
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
   padding-left: 10px;
 }
+
 .card__image {
   list-style: none;
-  width: 33.3333%;
   padding-right: 10px;
 }
-.photo-card img {
- width: 100%;
-}
+
 .stats {
   display: flex;
   justify-content: center;
 }
+
 .stats-item {
   margin-top: 0px;
   margin-bottom: 15px;
   padding: 10px;
 }
+
 .search-form {
   text-align: center;
 }
+
 .search-form input {
   width: 300px;
   height: 40px;
@@ -39,21 +41,23 @@ html {
   border-radius: 5px 5px 5px 5px;
   text-indent: 6px;
 }
+
 .button {
-text-align: center;
+  text-align: center;
 
 }
+
 .button-loader {
   background-color: #e9b5e93d;
-  border-color:  #8f638f;
+  border-color: #8f638f;
   border-radius: 5px 5px 5px 5px;
   width: 115px;
   height: 35px;
   font-size: 16px;
   display: none;
-  
 }
-.button-loader:hover  {
+
+.button-loader:hover {
   cursor: pointer;
 }
 

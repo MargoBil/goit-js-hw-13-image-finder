@@ -1,6 +1,8 @@
 import '../styles/styles.css';
+import '../../node_modules/basiclightbox/dist/basicLightbox.min.css';
 import getApiRequest from './apiService';
 import templateListImages from '../templates/list-images-tamplate.hbs';
+import * as basicLightbox from 'basiclightbox';
 const debounce = require ('lodash.debounce');
 const userKey = '13157109-fcd6eded5baca4880d7f5c7a8';
 
@@ -9,6 +11,7 @@ const refs = {
   input: document.querySelector ('input[name="query"]'),
   button: document.querySelector ('.button-loader'),
   body: document.querySelector ('body'),
+  modalCard: document.querySelector ('.list__images'),
 };
 
 let numberOfPage = 1;
@@ -16,13 +19,7 @@ let keyWord;
 
 refs.input.addEventListener ('input', debounce (handlerSearchingImages, 1000));
 refs.button.addEventListener ('click', handlerNexPagesOfImages);
-
-function renderListOfImages () {
-  getApiRequest (keyWord, numberOfPage, userKey).then (data => {
-    const markup = templateListImages (data);
-    refs.listOfImages.insertAdjacentHTML ('beforeend', markup);
-  });
-}
+refs.modalCard.addEventListener ('click', openModalWindow);
 
 function handlerSearchingImages (event) {
   if (event.data === '' || event.data === null) {
@@ -33,21 +30,28 @@ function handlerSearchingImages (event) {
   refs.listOfImages.innerHTML = '';
   numberOfPage = 1;
   keyWord = event.target.value;
-  renderListOfImages ();
-  setTimeout (() => {
+  getApiRequest (keyWord, numberOfPage, userKey).then (data => {
+    const markup = templateListImages (data);
+    refs.listOfImages.insertAdjacentHTML ('beforeend', markup);
     refs.button.classList.add ('visible');
-  }, 2000);
+  });
 }
 
 function handlerNexPagesOfImages (event) {
   event.preventDefault ();
-  let scroll = document.documentElement.offsetHeight;
   numberOfPage += 1;
-  renderListOfImages ();
-  setTimeout (() => {
+  const pageHeight = document.documentElement.offsetHeight - 35;
+  getApiRequest (keyWord, numberOfPage, userKey).then (data => {
+    const markup = templateListImages (data);
+    refs.listOfImages.insertAdjacentHTML ('beforeend', markup);
     window.scrollTo ({
-      top: scroll,
+      top: pageHeight,
       behavior: 'smooth',
     });
-  }, 1000);
+  });
+}
+
+function openModalWindow (event) {
+  const instance = basicLightbox.create (`<img src= ${event.target.srcset}>`);
+  instance.show ();
 }

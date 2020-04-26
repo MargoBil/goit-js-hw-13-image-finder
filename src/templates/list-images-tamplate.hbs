@@ -1,8 +1,8 @@
 <ul class="gallery">
   {{#each hits}}
-  <li class="card__image">
+  <li class="card__image" >
     <div class="photo-card">
-      <img src="{{webformatURL}}" alt="image" />
+      <img src="{{webformatURL}}" alt="image" srcset ="{{largeImageURL}}" width= "{{webformatWidth}}" height="{{webformatHeight}}"/>
       <div class="stats">
         <p class="stats-item">
           <i class="material-icons">thumb_up</i>
