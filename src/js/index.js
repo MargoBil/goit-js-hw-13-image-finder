@@ -10,7 +10,6 @@ const refs = {
   listOfImages: document.querySelector ('.list__images'),
   input: document.querySelector ('input[name="query"]'),
   button: document.querySelector ('.button-loader'),
-  body: document.querySelector ('body'),
   modalCard: document.querySelector ('.list__images'),
 };
 
@@ -40,10 +39,14 @@ function handlerSearchingImages (event) {
 function handlerNexPagesOfImages (event) {
   event.preventDefault ();
   numberOfPage += 1;
-  const pageHeight = document.documentElement.offsetHeight - 35;
+  const pageHeight =
+    document.documentElement.offsetHeight - refs.button.clientHeight;
+
   getApiRequest (keyWord, numberOfPage, userKey).then (data => {
-    const markup = templateListImages (data);
-    refs.listOfImages.insertAdjacentHTML ('beforeend', markup);
+    refs.listOfImages.insertAdjacentHTML (
+      'beforeend',
+      templateListImages (data)
+    );
     window.scrollTo ({
       top: pageHeight,
       behavior: 'smooth',
