@@ -55,6 +55,9 @@ function handlerNexPagesOfImages (event) {
 }
 
 function openModalWindow (event) {
-  const instance = basicLightbox.create (`<img src= ${event.target.srcset}>`);
-  instance.show ();
+  const eventImg = event.target.srcset;
+  const instance = basicLightbox.create (`<img src= ${eventImg}>`);
+  if (event.target.tagName === 'IMG') {
+    instance.show ();
+  }
 }
